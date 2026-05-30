@@ -1,0 +1,6 @@
+{
+  "name": "YouTube Growth Report Generator",
+  "description": "유튜브 채널 URL과 API 키를 활용하여 채널의 통계를 분석하고, Gemini AI를 통해 심도 깊은 YouTube 성장 및 콘텐츠 전략 보고서를 한국어로 생성해주는 서비스입니다.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
