@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Youtube, 
@@ -647,6 +648,7 @@ export default function App() {
                     <div className="bg-white border border-slate-200 p-6 md:p-8 rounded-2xl shadow-sm">
                       <div className="markdown-body prose prose-slate max-w-none prose-headings:font-display prose-headings:tracking-tight prose-a:text-rose-600 prose-blockquote:-skew-x-2">
                         <Markdown
+                          remarkPlugins={[remarkGfm]}
                           components={{
                             h1: ({node, ...props}) => <h1 className="text-xl font-bold font-display mt-8 mb-4 text-slate-900 border-b pb-2 flex items-center gap-2 border-slate-150" {...props} />,
                             h2: ({node, ...props}) => <h2 className="text-base font-bold font-display mt-6 mb-3 text-slate-900 flex items-center gap-2 border-b border-slate-150 pb-1" {...props} />,
@@ -657,12 +659,15 @@ export default function App() {
                             li: ({node, ...props}) => <li className="text-slate-600" {...props} />,
                             blockquote: ({node, ...props}) => <blockquote className="border-l-3 border-red-500 pl-4 py-2.5 italic my-4 bg-red-50/40 text-slate-700 rounded-r text-xs leading-relaxed" {...props} />,
                             table: ({node, ...props}) => (
-                              <div className="overflow-x-auto my-4 rounded-lg border border-slate-200">
-                                <table className="min-w-full border-collapse divide-y divide-slate-200 text-[11px] text-left" {...props} />
+                              <div className="overflow-x-auto my-4 rounded-xl border border-slate-200 shadow-sm">
+                                <table className="min-w-full text-[11px] text-left border-collapse" {...props} />
                               </div>
                             ),
-                            th: ({node, ...props}) => <th className="bg-slate-50 px-3 py-2 font-semibold text-slate-700 tracking-wider uppercase border-b border-slate-200" {...props} />,
-                            td: ({node, ...props}) => <td className="px-3 py-2 border-b border-slate-100 text-slate-600 font-medium" {...props} />,
+                            thead: ({node, ...props}) => <thead className="bg-slate-100 border-b border-slate-200" {...props} />,
+                            tbody: ({node, ...props}) => <tbody className="divide-y divide-slate-100" {...props} />,
+                            tr: ({node, ...props}) => <tr className="hover:bg-slate-50 transition-colors" {...props} />,
+                            th: ({node, ...props}) => <th className="px-4 py-2.5 font-bold text-slate-700 tracking-wide uppercase text-[10px] whitespace-nowrap" {...props} />,
+                            td: ({node, ...props}) => <td className="px-4 py-2.5 text-slate-600 font-medium" {...props} />,
                             code: ({node, ...props}) => <code className="bg-slate-100 text-red-600 rounded px-1.5 py-0.5 font-mono text-[10px] font-semibold" {...props} />
                           }}
                         >
