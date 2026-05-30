@@ -153,6 +153,12 @@ export default function App() {
     }
   };
 
+  // Download PDF via browser print
+  const handleDownloadPDF = () => {
+    if (!result) return;
+    window.print();
+  };
+
   // Download Markdown Report File
   const handleDownloadReport = () => {
     if (!result) return;
@@ -446,13 +452,22 @@ export default function App() {
                 >
                   {copied ? '복사 완료!' : 'Markdown 복사'}
                 </button>
-                <button 
+                <button
                   type="button"
                   id="btn_download_report"
                   onClick={handleDownloadReport}
                   className="px-3 py-1.5 text-xs font-bold bg-white border border-slate-300 rounded-md shadow-sm hover:shadow-md transition-all cursor-pointer select-none"
                 >
-                  리포트 다운로드 (.md)
+                  다운로드 (.md)
+                </button>
+                <button
+                  type="button"
+                  id="btn_download_pdf"
+                  onClick={handleDownloadPDF}
+                  className="px-3 py-1.5 text-xs font-bold bg-red-600 text-white border border-red-700 rounded-md shadow-sm hover:bg-red-700 transition-all cursor-pointer select-none flex items-center gap-1"
+                >
+                  <Download className="w-3 h-3" />
+                  PDF 저장
                 </button>
               </div>
             )}
@@ -540,7 +555,14 @@ export default function App() {
 
               {/* LIVE FULL REPORT AND ACTION PLAN */}
               {!isLoading && result && (
-                <div className="space-y-8">
+                <div id="printable-report" className="space-y-8">
+                  {/* PDF 전용 헤더 (화면에서는 숨김) */}
+                  <div id="pdf-header" className="border-b-2 border-slate-200 pb-4 mb-2">
+                    <h1 className="text-2xl font-black text-slate-900">YouTube Growth Report</h1>
+                    <p className="text-sm text-slate-500 mt-1">
+                      {result.channel.title} &middot; 분석 기간: {result.analysisPeriod} &middot; {new Date().toLocaleDateString('ko-KR')}
+                    </p>
+                  </div>
                   
                   {/* High Quality Rich Stats grids matching mockup but with real calculations */}
                   <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
